@@ -1,5 +1,6 @@
 import { Planet } from "@/domain/entities/planet"
 import { ListPlanetsRepository } from "../db/planet/list-planet-repository"
+import { DbSearchPlanetByIdRepository } from "../db/planet/search-planet-by-id-repository"
 import { SearchPlanetByNameRepository } from "../db/planet/search-planet-by-name-repository"
 
 export const mockPlanetRepository = (): ListPlanetsRepository => {
@@ -20,4 +21,14 @@ export const mockSearchPlanetByNameRepository = (): SearchPlanetByNameRepository
   }
 
   return new SearchPlanetByNameRepositoryStub()
+}
+
+export const mockSearchPlanetByIdRepository = (): DbSearchPlanetByIdRepository => {
+  class DbSearchPlanetByIdRepositoryStub implements DbSearchPlanetByIdRepository {
+    async searchById (planetId: string): Promise<Planet> {
+      return await Promise.resolve(null)
+    }
+  }
+
+  return new DbSearchPlanetByIdRepositoryStub()
 }
