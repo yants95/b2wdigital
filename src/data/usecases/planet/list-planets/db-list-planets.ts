@@ -1,5 +1,5 @@
 import { ListPlanetsRepository } from '@/data/db/planet/list-planet-repository'
-import { Planet } from '@/domain/models/planet'
+import { Planet } from '@/domain/entities/planet'
 import { ListPlanets } from '@/domain/usecases/planet/list-planets'
 
 export class DbListPlanets implements ListPlanets {

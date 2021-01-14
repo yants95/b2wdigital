@@ -1,4 +1,4 @@
-import { Planet } from "@/domain/models/planet";
+import { Planet } from "@/domain/entities/planet";
 
 export interface ListPlanetsRepository {
   list: () => Promise<Planet[]>

@@ -1,4 +1,4 @@
-import { Planet } from "@/domain/models/planet"
+import { Planet } from "@/domain/entities/planet"
 import { ListPlanetsRepository } from "../db/planet/list-planet-repository"
 
 export const mockPlanetRepository = (): ListPlanetsRepository => {
