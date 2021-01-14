@@ -1,5 +1,4 @@
 import { DbSearchPlanetByIdRepository } from "@/data/db/planet/search-planet-by-id-repository"
-import { SearchPlanetByNameRepository } from "@/data/db/planet/search-planet-by-name-repository"
 import { mockSearchPlanetByIdRepository } from "@/data/test/mock-planet"
 import { DbSearchPlanetById } from "./search-planet-by-id"
 

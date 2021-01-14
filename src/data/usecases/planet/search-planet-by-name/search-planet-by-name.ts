@@ -7,8 +7,8 @@ export class DbSearchPlanetByName implements SearchPlanetByName {
     private readonly searchPlanetByNameRepository: SearchPlanetByNameRepository,
   ) {}
 
-  async search (planetName: string): Promise<Planet> {
-    const planet = await this.searchPlanetByNameRepository.search(planetName)
+  async searchByName (planetName: string): Promise<Planet> {
+    const planet = await this.searchPlanetByNameRepository.searchByName(planetName)
     return planet
   }
 }

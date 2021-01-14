@@ -19,8 +19,8 @@ const makeSut = (): SutTypes => {
 describe('DbSearchPlanetByName Usecase', () => {
   test('shoud search a planet by its name', async () => {
     const { sut, searchPlanetByNameRepository } = makeSut()
-    const searchSpy = jest.spyOn(searchPlanetByNameRepository, 'search')
-    await sut.search('any_name')
+    const searchSpy = jest.spyOn(searchPlanetByNameRepository, 'searchByName')
+    await sut.searchByName('any_name')
     expect(searchSpy).toHaveBeenCalledWith('any_name')
   })
 })

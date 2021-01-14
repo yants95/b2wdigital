@@ -16,7 +16,7 @@ export const mockPlanetRepository = (): ListPlanetsRepository => {
 
 export const mockSearchPlanetByNameRepository = (): SearchPlanetByNameRepository => {
   class SearchPlanetByNameRepositoryStub implements SearchPlanetByNameRepository {
-    async search (planetName: string): Promise<Planet> {
+    async searchByName (planetName: string): Promise<Planet> {
       return await Promise.resolve(null)
     }
   }
