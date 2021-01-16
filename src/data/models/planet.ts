@@ -1,3 +1,3 @@
 import { Planet } from '@/domain/entities/planet'
 
-export type PlanetModel = Planet 
+export type PlanetModel = Omit<Planet, 'id'>
