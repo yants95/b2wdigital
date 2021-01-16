@@ -22,6 +22,7 @@ describe('AddPlanet Usecase', () => {
     const addSpy = jest.spyOn(addPlanetRepositoryStub, 'add')
     await sut.add(mockAddPlanetParams())
     expect(addSpy).toHaveBeenCalledWith({
+      id: "any_id",
       name: "any_name",
       climate: "any_climate",
       terrain: "any_terrain",
