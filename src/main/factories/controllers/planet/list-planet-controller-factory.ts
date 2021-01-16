@@ -4,6 +4,6 @@ import { Controller } from "@/presentation/protocols/controller";
 
 export const listPlanetsController = (): Controller => {
     const listPlanetsRepository = new PlanetMongoRepository()
-    const controller = new ListPlanetController(listPlanetsRepository);
+    const controller = new ListPlanetController(listPlanetsRepository, listPlanetsRepository);
     return controller
 }

@@ -14,12 +14,10 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
     async load (): Promise<any> {
         const response = await axios.get(`${env.swapiAPI}/planets`)
         const planetCollection = await MongoHelper.getCollection('planets')
-
-        if (!planetCollection.find()) {
-            await planetCollection.insertMany(response.data.results)
-        }
-        
-        return 'carregou'
+        await planetCollection.insertMany(response.data.results)
+        // if (!planetCollection.find()) {
+        //     return await planetCollection.insertMany(response.data.results)
+        // }
     }
 
     async searchByName (planetName: string): Promise<Planet> {

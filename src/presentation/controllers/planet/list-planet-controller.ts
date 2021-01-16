@@ -1,21 +1,23 @@
 
+import { Planet } from '@/domain/entities/planet'
+import { ListPlanets } from '@/domain/usecases/planet/list-planets'
 import { LoadPlanets } from '@/domain/usecases/planet/load-planets'
+import { ok } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 
 export class ListPlanetController implements Controller {
   constructor (
-    private readonly planets: LoadPlanets,
+    private readonly loadPlanets: LoadPlanets,
+    private readonly listPlanets: ListPlanets,
   ) {}
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const planets = await this.planets.load()
+      await this.loadPlanets.load()
+      const planets = await this.listPlanets.list()
 
-      return {
-        statusCode: 200,
-        body: planets
-      }
+      return ok(planets)
     } catch (error) {
       return error
     }
