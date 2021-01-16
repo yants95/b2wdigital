@@ -21,8 +21,8 @@ describe('AddPlanet Usecase', () => {
     const { sut, addPlanetRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addPlanetRepositoryStub, 'add')
     await sut.add(mockAddPlanetParams())
+    expect(addSpy).toBeTruthy()
     expect(addSpy).toHaveBeenCalledWith({
-      id: "any_id",
       name: "any_name",
       climate: "any_climate",
       terrain: "any_terrain",
@@ -33,6 +33,7 @@ describe('AddPlanet Usecase', () => {
       surface_water: "string",
       population: "string",
       films: ["any_film", "other_film"],
+      residents: ["any_resident", "other_resident"],
       created: new Date('2021-01-13'),
       edited: new Date('2021-01-13'),
       url: "any_url"
