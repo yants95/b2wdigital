@@ -7,6 +7,7 @@ export type Planet = {
     surface_water: string
     population: string
     films: string[]
+    residents: string[]
     created: Date
     edited: Date
     url: string

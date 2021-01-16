@@ -15,9 +15,6 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
         const response = await axios.get(`${env.swapiAPI}/planets`)
         const planetCollection = await MongoHelper.getCollection('planets')
         await planetCollection.insertMany(response.data.results)
-        // if (!planetCollection.find()) {
-        //     return await planetCollection.insertMany(response.data.results)
-        // }
     }
 
     async searchByName (planetName: string): Promise<Planet> {
@@ -35,7 +32,7 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
     async add (planetParams: AddPlanetParams): Promise<Planet> {
         const planetCollection = await MongoHelper.getCollection('planets')
         const planet = await planetCollection.insertOne(planetParams)
-        return planet && MongoHelper.map(planet)
+        return planet && MongoHelper.map(planet.ops[0])
     }
 
     async list (): Promise<Planet[]> {

@@ -3,7 +3,6 @@ import { AddPlanetRepository } from "../db/planet/add-planet-repository"
 import { PlanetModel } from "../models/planet"
 
 export const mockAddPlanetParams = (): AddPlanetParams => ({
-    "id": "any_id",
     "name": "any_name",
     "climate": "any_climate",
     "terrain": "any_terrain",
@@ -14,6 +13,7 @@ export const mockAddPlanetParams = (): AddPlanetParams => ({
     "surface_water": "string",
     "population": "string",
     "films": ["any_film", "other_film"],
+    "residents": ["any_resident", "other_resident"],
     "created": new Date('2021-01-13'),
     "edited": new Date('2021-01-13'),
     "url": "any_url"
