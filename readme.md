@@ -13,9 +13,11 @@ Essa API faz parte do desafio backend da B2W Digital.
 1. Clone esse repositório na sua máquina **https://github.com/yants95/b2wdigital.git**
 2. Inicie o docker na sua máquina
 3. Entre na pasta do projeto e execute **yarn run up**
-4. Está pronto! A API está disponível no endereço **http://localhost:5050/api** com os endpoints abaixo
-    -> GET: /planets
-    -> GET: /planets/id/:planetId
-    -> GET: /planets/name/:planetName
-    -> DELETE: /planets/:planetId
-    -> POST: /planets
+4. Está pronto! A API está disponível no endereço **http://localhost:5050/api**
+5. Endpoints disponíveis
+
+    * GET: /planets
+    * GET: /planets/id/:planetId
+    * GET: /planets/name/:planetName
+    * DELETE: /planets/:planetId
+    * POST: /planets
