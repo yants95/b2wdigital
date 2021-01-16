@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "up": "yarn run build && docker-compose up",
+    "down": "docker-compose down",
+    "stop": "docker-compose stop",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:unit": "yarn run test --watch -c jest-unit-config.js",
     "test:ci": "yarn run test --coverage",
@@ -13,6 +16,7 @@
     "test:staged": "yarn test --findRelatedTests"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/mongodb": "^3.6.3",
     "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
