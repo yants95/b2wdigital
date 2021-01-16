@@ -10,7 +10,7 @@ import axios from 'axios'
 import { ObjectId } from "mongodb"
 import { MongoHelper } from "../helpers/mongo-helper"
 
-export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlanetByName, SearchPlanetById, AddPlanet, ListPlanets {
+export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlanetByName, SearchPlanetById, AddPlanet, ListPlanets, RemovePlanetById {
     async load (): Promise<any> {
         const response = await axios.get(`${env.swapiAPI}/planets`)
         const planetCollection = await MongoHelper.getCollection('planets')
@@ -44,5 +44,11 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
         const planetCollection = await MongoHelper.getCollection('planets')
         const planets = await planetCollection.find().toArray()
         return planets && MongoHelper.map(planets)
+    }
+
+    async remove (planetId: string): Promise<void> {
+        const planetCollection = await MongoHelper.getCollection('planets')
+        const planet = await planetCollection.deleteOne({ _id: new ObjectId(planetId) })
+        return planet && MongoHelper.map(planet)
     }
 }
