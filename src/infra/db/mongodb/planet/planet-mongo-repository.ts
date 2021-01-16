@@ -2,6 +2,7 @@ import { LoadPlanetsRepository } from "@/data/db/planet/load-planets-repository"
 import { Planet } from "@/domain/entities/planet"
 import { AddPlanet, AddPlanetParams } from "@/domain/usecases/planet/add-planet"
 import { ListPlanets } from "@/domain/usecases/planet/list-planets"
+import { RemovePlanetById } from "@/domain/usecases/planet/remove-planet-by-id"
 import { SearchPlanetById } from "@/domain/usecases/planet/search-planet-by-id"
 import { SearchPlanetByName } from "@/domain/usecases/planet/search-planet-by-name"
 import env from '@/main/config/env'
@@ -41,7 +42,7 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
 
     async list (): Promise<Planet[]> {
         const planetCollection = await MongoHelper.getCollection('planets')
-        const planets = await planetCollection.find({})
+        const planets = await planetCollection.find().toArray()
         return planets && MongoHelper.map(planets)
     }
 }
