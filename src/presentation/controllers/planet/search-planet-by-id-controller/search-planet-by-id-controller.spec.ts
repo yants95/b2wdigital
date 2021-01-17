@@ -1,5 +1,6 @@
 import { Planet } from "@/domain/entities/planet"
 import { SearchPlanetById } from "@/domain/usecases/planet/search-planet-by-id"
+import { serverError } from "@/presentation/helpers/http/http-helper"
 import { HttpRequest } from "@/presentation/protocols/http"
 import { RemovePlanetByIdController } from "../remove-planet-controller/remove-planet-by-id-controller"
 import { SearchPlanetByIdController } from "./search-planet-by-id-controller"
@@ -40,5 +41,12 @@ describe('SearchPlaneyById Usecase', () => {
     const httpRequest = mockRequest()
     await sut.handle(httpRequest)
     expect(removeSpy).toHaveBeenCalledWith(httpRequest.params.planetId)
+  })
+
+  test('shoud return 500 if SearchPlanetById throws', async () => {
+    const { sut, searchPlanetById } = makeSut()
+    jest.spyOn(searchPlanetById, 'searchById').mockImplementationOnce(Promise.reject)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
