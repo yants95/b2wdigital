@@ -1,4 +1,5 @@
 import { RemovePlanetById } from "@/domain/usecases/planet/remove-planet-by-id"
+import { serverError } from "@/presentation/helpers/http/http-helper"
 import { HttpRequest } from "@/presentation/protocols/http"
 import { RemovePlanetByIdController } from "./remove-planet-by-id-controller"
 
@@ -38,5 +39,12 @@ describe('RemovePlanet Usecase', () => {
     const httpRequest = mockRequest()
     await sut.handle(httpRequest)
     expect(removeSpy).toHaveBeenCalledWith(httpRequest.params.planetId)
+  })
+
+  test('shoud return 500 if RemovePlanetById throws', async () => {
+    const { sut, removePlanetStub } = makeSut()
+    jest.spyOn(removePlanetStub, 'remove').mockImplementationOnce(Promise.reject)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })

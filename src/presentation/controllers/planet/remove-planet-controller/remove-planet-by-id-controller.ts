@@ -1,6 +1,6 @@
 
 import { RemovePlanetById } from '@/domain/usecases/planet/remove-planet-by-id'
-import { noContent } from '@/presentation/helpers/http/http-helper'
+import { noContent, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 
@@ -16,7 +16,7 @@ export class RemovePlanetByIdController implements Controller {
 
       return noContent()
     } catch (error) {
-      return error
+      return serverError(error)
     }
   }
 }
