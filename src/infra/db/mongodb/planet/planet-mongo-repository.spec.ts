@@ -1,5 +1,4 @@
 import { mockAddPlanetParams } from '@/data/test/mock-add-planet'
-import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { PlanetMongoRepository } from './planet-mongo-repository'
 
