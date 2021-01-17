@@ -14,7 +14,7 @@ export class SearchPlanetByNameController implements Controller {
       const planetName = httpRequest.params.planetName
       const planet = await this.searchPlanetByName.searchByName(planetName)
 
-      return planet ? ok(planet) : noContent()
+      return ok(planet)
     } catch (error) {
       console.log('controller error', error)
       return error
