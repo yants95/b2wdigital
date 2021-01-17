@@ -2,7 +2,7 @@
 import { Planet } from '@/domain/entities/planet'
 import { ListPlanets } from '@/domain/usecases/planet/list-planets'
 import { LoadPlanets } from '@/domain/usecases/planet/load-planets'
-import { ok } from '@/presentation/helpers/http/http-helper'
+import { ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 
@@ -19,7 +19,7 @@ export class ListPlanetController implements Controller {
 
       return ok(planets)
     } catch (error) {
-      return error
+      return serverError(error)
     }
   }
 }

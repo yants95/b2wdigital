@@ -1,8 +1,6 @@
 import { ListPlanetsRepository } from "@/data/db/planet/list-planet-repository"
 import { LoadPlanetsRepository } from "@/data/db/planet/load-planets-repository"
-import { mockAddPlanetRepository } from "@/data/test/mock-add-planet"
 import { Planet } from "@/domain/entities/planet"
-import { AddPlanet } from "@/domain/usecases/planet/add-planet"
 import { ListPlanets } from "@/domain/usecases/planet/list-planets"
 import { LoadPlanets } from "@/domain/usecases/planet/load-planets"
 import { serverError } from "@/presentation/helpers/http/http-helper"
@@ -63,5 +61,12 @@ describe('AddPlanet Usecase', () => {
     const loadSpy = jest.spyOn(listPlanetsStub, 'list')
     await sut.handle(mockRequest())
     expect(loadSpy).toHaveBeenCalled()
+  })
+
+  test('shoud return 500 if AddPlanet throws', async () => {
+    const { sut, listPlanetsStub } = makeSut()
+    jest.spyOn(listPlanetsStub, 'list').mockImplementationOnce(Promise.reject)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
