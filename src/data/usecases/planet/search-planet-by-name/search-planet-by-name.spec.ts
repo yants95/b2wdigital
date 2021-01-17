@@ -4,23 +4,30 @@ import { DbSearchPlanetByName } from "./search-planet-by-name"
 
 type SutTypes = {
   sut: DbSearchPlanetByName
-  searchPlanetByNameRepository: SearchPlanetByNameRepository
+  searchPlanetByNameRepositoryStub: SearchPlanetByNameRepository
 }
 
 const makeSut = (): SutTypes => {
-  const searchPlanetByNameRepository = mockSearchPlanetByNameRepository()
-  const sut = new DbSearchPlanetByName(searchPlanetByNameRepository)
+  const searchPlanetByNameRepositoryStub = mockSearchPlanetByNameRepository()
+  const sut = new DbSearchPlanetByName(searchPlanetByNameRepositoryStub)
   return {
     sut,
-    searchPlanetByNameRepository,
+    searchPlanetByNameRepositoryStub,
   }
 }
 
 describe('DbSearchPlanetByName Usecase', () => {
   test('shoud search a planet by its name', async () => {
-    const { sut, searchPlanetByNameRepository } = makeSut()
-    const searchSpy = jest.spyOn(searchPlanetByNameRepository, 'searchByName')
+    const { sut, searchPlanetByNameRepositoryStub } = makeSut()
+    const searchSpy = jest.spyOn(searchPlanetByNameRepositoryStub, 'searchByName')
     await sut.searchByName('any_name')
     expect(searchSpy).toHaveBeenCalledWith('any_name')
+  })
+
+  test('should throw if DbSearchPlanetByName throws', async () => {
+    const { sut, searchPlanetByNameRepositoryStub } = makeSut()
+    jest.spyOn(searchPlanetByNameRepositoryStub, 'searchByName').mockImplementationOnce(Promise.reject)
+    const promise = sut.searchByName('any_name')
+    await expect(promise).rejects.toThrow()
   })
 })
