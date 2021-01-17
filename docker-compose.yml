@@ -22,6 +22,5 @@ services:
       - ./package.json:/www/b2wdigital/package.json
     ports:
       - "5050:5050"
-      - "9222:9222"
     links:
       - mongo
