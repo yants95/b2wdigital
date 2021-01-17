@@ -14,7 +14,7 @@ export class SearchPlanetByIdController implements Controller {
       const planetId = httpRequest.params.planetId
       const planet = await this.searchPlanetById.searchById(planetId)
 
-      return planet ? ok(planet) : noContent()
+      return ok(planet)
     } catch (error) {
       return serverError(error)
     }
