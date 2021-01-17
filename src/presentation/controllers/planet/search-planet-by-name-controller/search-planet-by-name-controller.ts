@@ -1,6 +1,6 @@
 
 import { SearchPlanetByName } from '@/domain/usecases/planet/search-planet-by-name'
-import { noContent, ok } from '@/presentation/helpers/http/http-helper'
+import { noContent, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 
@@ -16,8 +16,7 @@ export class SearchPlanetByNameController implements Controller {
 
       return ok(planet)
     } catch (error) {
-      console.log('controller error', error)
-      return error
+      return serverError(error)
     }
   }
 }
