@@ -23,7 +23,7 @@ export class PlanetMongoRepository implements LoadPlanetsRepository, SearchPlane
         return planet && MongoHelper.map(planet)
     }
 
-    async searchById (planetId: string): Promise<Planet | null> {
+    async searchById (planetId: string): Promise<Planet> {
         const planetCollection = await MongoHelper.getCollection('planets')
         const planet = await planetCollection.findOne({ _id: new ObjectId(planetId) })
         return planet && MongoHelper.map(planet)

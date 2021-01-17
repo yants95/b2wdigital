@@ -1,11 +1,13 @@
 import { mockAddPlanetParams } from '@/data/test/mock-add-planet'
-import { Collection, ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { PlanetMongoRepository } from './planet-mongo-repository'
 
-let planetCollection: Collection
-
 describe('Planet Mongo Repository', () => {
+  const makeSut = (): PlanetMongoRepository => {
+    return new PlanetMongoRepository()
+  }
+
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -14,31 +16,47 @@ describe('Planet Mongo Repository', () => {
     await MongoHelper.disconnect()
   })
 
-  beforeEach(async () => {
-    planetCollection = await MongoHelper.getCollection('planets')
-  })
-
-  const makeSut = (): PlanetMongoRepository => {
-    return new PlanetMongoRepository()
-  }
-
-  describe('searchByName()', () => {
-    test('should return an planet on searchByName success', async () => {
+  describe('load()', () => {
+    test('should load planets from api', async () => {
       const sut = makeSut()
-      await planetCollection.insertOne(mockAddPlanetParams())
-      const planet = await sut.searchByName('any_name')
-      expect(planet).toBeTruthy()
-      expect(planet.id).toBeTruthy()
-      expect(planet.name).toBe('any_name')
+      const loadSpy = jest.spyOn(sut, 'load')
+      await sut.load()
+      expect(loadSpy).toHaveBeenCalled()
     })
-  })
 
-  describe('remove()', () => {
-    test('should remove a planet if an valid id is provided', async () => {
+    test('should return planet by name', async () => {
       const sut = makeSut()
-      await planetCollection.deleteOne(mockAddPlanetParams())
-      const planet = await sut.remove('any_id')
-      expect(planet).toBeNull()
+      const searchByNameSpy = jest.spyOn(sut, 'searchByName')
+      await sut.searchByName('any_name')
+      expect(searchByNameSpy).toHaveBeenCalledWith('any_name')
+    })
+
+    test('should search planet by id', async () => {
+      const sut = makeSut()
+      const searchByIdSpy = jest.spyOn(sut, 'searchById')
+      await sut.searchById('any_id_11111')
+      expect(searchByIdSpy).toHaveBeenCalledWith('any_id_11111')
+    })
+
+    test('should remove planet by id', async () => {
+      const sut = makeSut()
+      const removeSpy = jest.spyOn(sut, 'remove')
+      await sut.remove('any_id_22222')
+      expect(removeSpy).toHaveBeenCalledWith('any_id_22222')
+    })
+
+    test('should return planet on add success', async () => {
+      const sut = makeSut()
+      const addSpy = jest.spyOn(sut, 'add')
+      await sut.add(mockAddPlanetParams())
+      expect(addSpy).toBeTruthy()
+    })
+
+    test('should list planets from mongodb', async () => {
+      const sut = makeSut()
+      const listSpy = jest.spyOn(sut, 'list')
+      await sut.list()
+      expect(listSpy).toHaveBeenCalled()
     })
   })
 })
